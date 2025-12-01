@@ -1,3 +1,6 @@
 <Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+  </Folder>
   <Project Path="AdventOfCode2025/AdventOfCode2025.csproj" />
 </Solution>
