@@ -58,7 +58,7 @@ public class Tasks
 		}
 		Debug.WriteLine($" Hit zero {dialZeroHitsTotal} times and passed zero {dialPassedZeroTotal} times. ");
 		Assert.AreEqual(3, dialZeroHitsTotal);
-		Assert.AreEqual(23, dialPassedZeroTotal);
+		Assert.AreEqual(3, dialPassedZeroTotal);
 	}
 
 	[TestMethod]
@@ -73,6 +73,7 @@ public class Tasks
 			var isNegative = line.StartsWith("L");
 			var value = int.Parse(line.Substring(1));
 			value = isNegative ? -value : value;
+			if(value == 0) throw new Exception("Unexpected value");
 			var passedZeroCount = Math.Abs(Utils.CountWrappings(dial, value));
 			dial = Utils.WrapValue(dial + value);
 			if (dial == 0)

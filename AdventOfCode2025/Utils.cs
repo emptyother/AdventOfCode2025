@@ -37,7 +37,7 @@ public class Utils {
 			// Count backward crossings, excluding the starting position.
 			var crossings = CeiledDivision(shiftedEnd, size) - CeiledDivision(shiftedStart, size);
 			// If we end exactly on a boundary (e.g., zero), do not count that endpoint.
-			//if ((shiftedEnd % size) == 0) crossings++;
+			if ((shiftedEnd % size) == 0) crossings++;
 			return crossings;
 		}
 	}

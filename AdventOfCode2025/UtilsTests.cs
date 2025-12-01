@@ -28,10 +28,10 @@ public class UtilsTests
 		Assert.AreEqual(1, Utils.CountWrappings(50, 51));
 		Assert.AreEqual(2, Utils.CountWrappings(50, 150));
 		Assert.AreEqual(0, Utils.CountWrappings(50, -50));
+		Assert.AreEqual(-1, Utils.CountWrappings(50, -51));
 		Assert.AreEqual(-2, Utils.CountWrappings(0, -101));
 		Assert.AreEqual(-1, Utils.CountWrappings(0, -1));
 		Assert.AreEqual(-1, Utils.CountWrappings(0, -100));
-		Assert.AreEqual(-1, Utils.CountWrappings(50, -51));
 		Assert.AreEqual(-5, Utils.CountWrappings(0, -500));
 		await Task.CompletedTask;
 	}
