@@ -14,22 +14,16 @@ namespace AdventOfCode2025
 		public void Day1_Task1()
 		{
 			var path = Path.Combine(AppContext.BaseDirectory, "Data", "input.txt");
-			Assert.IsTrue(File.Exists(path), $"Missing test input at {path}");
-
-			var dial = 50;
-			Debug.WriteLine($"Starting at {dial}.");
 			var zeroDialHits = 0;
+			var dial = 50;
 			foreach (var line in File.ReadLines(path))
 			{
-				if (!line.StartsWith("L") && !line.StartsWith("R")) throw new Exception("Not a command.");
 				var isNegative = line.StartsWith("L");
 				var value = int.Parse(line.Substring(1));
 				value = isNegative ? -value : value;
 				dial = WrapValue(dial + value, 0, 99);
 				if(dial == 0) zeroDialHits++;
-				Debug.WriteLine($"{line}: Dial is now at {dial}");
 			}
-			Debug.WriteLine($"================================");
 			Debug.WriteLine($" Hit zero {zeroDialHits} times. ");
 		}
 
