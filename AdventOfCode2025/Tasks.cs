@@ -73,7 +73,7 @@ public class Tasks
 			var isNegative = line.StartsWith("L");
 			var value = int.Parse(line.Substring(1));
 			value = isNegative ? -value : value;
-			if(value == 0) throw new Exception("Unexpected value");
+			if (value == 0) throw new Exception("Unexpected value");
 			var passedZeroCount = Math.Abs(Utils.CountWrappings(dial, value));
 			dial = Utils.WrapValue(dial + value);
 			if (dial == 0)
@@ -85,7 +85,11 @@ public class Tasks
 				dialPassedZeroTotal += passedZeroCount;
 			}
 			var debugString = $"The dial is rotated {line} to point at {dial}";
-			if (passedZeroCount > 0 && dial != 0)
+			if (dial == 0)
+			{
+				debugString += "; it hits zero during this rotation.";
+			}
+			else if (passedZeroCount > 0)
 			{
 				debugString += $"; during this rotation, it points at zero {passedZeroCount} time(s).";
 			}
