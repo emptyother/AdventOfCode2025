@@ -35,7 +35,8 @@ public class Tasks
 			var isNegative = line.StartsWith("L");
 			var value = int.Parse(line.Substring(1));
 			value = isNegative ? -value : value;
-			var passedZeroCount = Math.Abs(Utils.CountWrappings(dial, value));
+			// If dial is already at zero, we don't count it as passing zero again.
+			var passedZeroCount = dial == 0 ? 0: Math.Abs(Utils.CountWrappings(dial, value));
 			dial = Utils.WrapValue(dial + value);
 			if (dial == 0)
 			{
@@ -74,7 +75,7 @@ public class Tasks
 			var value = int.Parse(line.Substring(1));
 			value = isNegative ? -value : value;
 			if (value == 0) throw new Exception("Unexpected value");
-			var passedZeroCount = Math.Abs(Utils.CountWrappings(dial, value));
+			var passedZeroCount = dial == 0 ? 0: Math.Abs(Utils.CountWrappings(dial, value));
 			dial = Utils.WrapValue(dial + value);
 			if (dial == 0)
 			{

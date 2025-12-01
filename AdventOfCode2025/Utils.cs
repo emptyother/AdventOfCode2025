@@ -27,19 +27,20 @@ public class Utils {
 		if (size <= 0) throw new ArgumentException("Invalid range.");
 		var shiftedStart = dial - minValue;
 		var shiftedEnd = shiftedStart + modification;
-		if (modification >= 0)
-		{
-			// Count forward crossings, excluding the starting position.
-			return FlooredDivision(shiftedEnd, size) - FlooredDivision(shiftedStart + 1, size);
-		}
-		else
-		{
-			// Count backward crossings, excluding the starting position.
-			var crossings = CeiledDivision(shiftedEnd, size) - CeiledDivision(shiftedStart, size);
-			// If we end exactly on a boundary (e.g., zero), do not count that endpoint.
-			if ((shiftedEnd % size) == 0) crossings++;
-			return crossings;
-		}
+		return FlooredDivision(shiftedEnd, size) - FlooredDivision(shiftedStart + 1, size);
+		//if (modification >= 0)
+		//{
+		//	// Count forward crossings, excluding the starting position.
+		//	return FlooredDivision(shiftedEnd, size) - FlooredDivision(shiftedStart + 1, size);
+		//}
+		//else
+		//{
+		//	// Count backward crossings, excluding the starting position.
+		//	var crossings = CeiledDivision(shiftedEnd, size) - CeiledDivision(shiftedStart, size);
+		//	// If we end exactly on a boundary (e.g., zero), do not count that endpoint.
+		//	if ((shiftedEnd % size) == 0) crossings++;
+		//	return crossings;
+		//}
 	}
 
 	private static int FlooredDivision(int a, int b) => (int)Math.Floor((double)a / b);

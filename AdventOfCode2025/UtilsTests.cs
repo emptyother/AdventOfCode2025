@@ -21,6 +21,8 @@ public class UtilsTests
 	[TestMethod]
 	public async Task TestCountWrapping()
 	{
+		Assert.AreEqual(1, Utils.CountWrappings(52, 48));
+		Assert.AreEqual(0, Utils.CountWrappings(0, -5));
 		Assert.AreEqual(10, Utils.CountWrappings(50, 1000));
 		Assert.AreEqual(-10, Utils.CountWrappings(50, -1000));
 		Assert.AreEqual(0, Utils.CountWrappings(50, 49));
@@ -30,12 +32,13 @@ public class UtilsTests
 		//Assert.AreEqual(-1, Utils.CountWrappings(50, -50));
 		Assert.AreEqual(0, Utils.CountWrappings(50, -50));
 		Assert.AreEqual(-1, Utils.CountWrappings(50, -51));
-		Assert.AreEqual(0, Utils.CountWrappings(0, -1));
-		//Assert.AreEqual(-5, Utils.CountWrappings(0, -500));
-		Assert.AreEqual(-4, Utils.CountWrappings(0, -500));
-		//Assert.AreEqual(-1, Utils.CountWrappings(0, -100));
-		Assert.AreEqual(0, Utils.CountWrappings(0, -100));
-		Assert.AreEqual(-1, Utils.CountWrappings(0, -101));
+		Assert.AreEqual(-1, Utils.CountWrappings(0, -1));
+		Assert.AreEqual(-5, Utils.CountWrappings(0, -500));
+		//Assert.AreEqual(-4, Utils.CountWrappings(0, -500));
+		Assert.AreEqual(-1, Utils.CountWrappings(0, -100));
+		//Assert.AreEqual(0, Utils.CountWrappings(0, -100));
+		//Assert.AreEqual(-1, Utils.CountWrappings(0, -101));
+		Assert.AreEqual(-2, Utils.CountWrappings(0, -101));
 		await Task.CompletedTask;
 	}
 }
