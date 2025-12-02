@@ -68,13 +68,60 @@ public class Utils
 		return null;
 	}
 
-	public static List<RepeatedDigits> RangeHasRepeatingDigitSequences((long start, long end) range)
+	public static RepeatedDigits? HasRepeatingDigitSequences(long current)
+	{
+		var currentStr = current.ToString();
+		for (var divider = 2; divider <= currentStr.Length; divider++)
+		{
+			// split into parts of 'divider' length
+			if (currentStr.Length % divider != 0) continue; // must divide evenly
+			var partLength = currentStr.Length / divider;
+			var parts = new List<string>();
+			for (var i = 0; i < divider; i++)
+			{
+				var part = currentStr.Substring(i * partLength, partLength);
+				parts.Add(part);
+			}
+			// Find if all parts are the same
+			var firstPart = parts[0];
+			var allSame = parts.All(p => p == firstPart);
+			if (allSame)
+			{
+				return new RepeatedDigits
+				{
+					RepeatedDigit = firstPart,
+					RepeatedCount = divider,
+					FullSequence = currentStr
+				};
+			}
+		}
+		// No repeating sequences found.
+		return null;
+	}
+
+	public static List<RepeatedDigits> RangeHasDoubleDigitSequences((long start, long end) range)
 	{
 		var current = range.start;
 		var list = new List<RepeatedDigits>();
 		while (current <= range.end)
 		{
 			var res = HasDoubleDigitSequences(current);
+			if (res.HasValue)
+			{
+				list.Add(res.Value);
+			}
+			current++;
+		}
+		return list;
+	}
+
+	public static List<RepeatedDigits> RangeHasRepeatingDigitSequences((long start, long end) range)
+	{
+		var current = range.start;
+		var list = new List<RepeatedDigits>();
+		while (current <= range.end)
+		{
+			var res = HasRepeatingDigitSequences(current);
 			if (res.HasValue)
 			{
 				list.Add(res.Value);
