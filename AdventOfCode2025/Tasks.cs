@@ -109,17 +109,31 @@ public class Tasks
 	{
 		var path = Path.Combine(AppContext.BaseDirectory, "Data", "day2_input_sample.txt");
 		var content = File.ReadAllText(path);
+		Day2Task(content);
+	}
+
+	[TestMethod]
+	public void Day2_Task1_Full()
+	{
+		var path = Path.Combine(AppContext.BaseDirectory, "Data", "day2_input.txt");
+		var content = File.ReadAllText(path);
+		Day2Task(content);
+	}
+
+	private static void Day2Task(string content)
+	{
+
 		var ranges = content.Split(',');
-		var rangeList = new List<(int start, int end)>();
+		var rangeList = new List<(long start, long end)>();
 		foreach (var range in ranges)
 		{
 			var bounds = range.Split('-');
-			var start = int.Parse(bounds[0]);
-			var end = int.Parse(bounds[1]);
+			var start = long.Parse(bounds[0]);
+			var end = long.Parse(bounds[1]);
 			if(end <= start) throw new Exception("Invalid range");
 			rangeList.Add((start, end));
 		}
-		var allInvalidIds = new List<int>();
+		var allInvalidIds = new List<long>();
 		foreach (var range in rangeList)
 		{
 			var result = Utils.RangeHasRepeatingDigitSequences(range);
@@ -131,7 +145,7 @@ public class Tasks
 			else
 			{
 				debugText += $" has {result.Count} invalid ids,";
-				var allSequences = result.Select(e => int.Parse(e.FullSequence));
+				var allSequences = result.Select(e => long.Parse(e.FullSequence));
 				var ands = string.Join(" and ", allSequences);
 				debugText += $" {ands}.";
 				allInvalidIds.AddRange(allSequences);

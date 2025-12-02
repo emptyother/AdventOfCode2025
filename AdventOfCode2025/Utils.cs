@@ -1,5 +1,3 @@
-using System.Diagnostics;
-
 namespace AdventOfCode2025;
 
 public class Utils
@@ -49,7 +47,7 @@ public class Utils
 	private static int FlooredDivision(int a, int b) => (int)Math.Floor((double)a / b);
 	private static int CeiledDivision(int a, int b) => (int)Math.Ceiling((double)a / b);
 
-	public static RepeatedDigits? HasDoubleDigitSequences(int current)
+	public static RepeatedDigits? HasDoubleDigitSequences(long current)
 	{
 		// Same as below except I only need to divide by 2.
 		var currentStr = current.ToString();
@@ -70,39 +68,7 @@ public class Utils
 		return null;
 	}
 
-	[Obsolete("I was supposed to only look for double sequences, but this looks for any repeating sequences.")]
-	public static RepeatedDigits? HasRepeatingDigitSequences(int current)
-	{
-		var currentStr = current.ToString();
-		for (var divider = 2; divider <= currentStr.Length; divider++)
-		{
-			// split into parts of 'divider' length
-			if (currentStr.Length % divider != 0) continue; // must divide evenly
-			var partLength = currentStr.Length / divider;
-			var parts = new List<string>();
-			for (var i = 0; i < divider; i++)
-			{
-				var part = currentStr.Substring(i * partLength, partLength);
-				parts.Add(part);
-			}
-			// Find if all parts are the same
-			var firstPart = parts[0];
-			var allSame = parts.All(p => p == firstPart);
-			if (allSame)
-			{
-				return new RepeatedDigits
-				{
-					RepeatedDigit = firstPart,
-					RepeatedCount = divider,
-					FullSequence = currentStr
-				};
-			}
-		}
-		// No repeating sequences found.
-		return null;
-	}
-
-	public static List<RepeatedDigits> RangeHasRepeatingDigitSequences((int start, int end) range)
+	public static List<RepeatedDigits> RangeHasRepeatingDigitSequences((long start, long end) range)
 	{
 		var current = range.start;
 		var list = new List<RepeatedDigits>();
