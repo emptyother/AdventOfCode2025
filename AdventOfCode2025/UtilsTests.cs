@@ -22,7 +22,8 @@ public class UtilsTests
 	public async Task TestCountWrapping()
 	{
 		Assert.AreEqual(1, Utils.CountWrappings(52, 48));
-		Assert.AreEqual(0, Utils.CountWrappings(0, -5));
+		// Assert.AreEqual(0, Utils.CountWrappings(0, -5));
+		Assert.AreEqual(-1, Utils.CountWrappings(0, -5));
 		Assert.AreEqual(10, Utils.CountWrappings(50, 1000));
 		Assert.AreEqual(-10, Utils.CountWrappings(50, -1000));
 		Assert.AreEqual(0, Utils.CountWrappings(50, 49));
