@@ -36,7 +36,7 @@ public class Tasks
 			var value = int.Parse(line.Substring(1));
 			value = isNegative ? -value : value;
 			// If dial is already at zero, we don't count it as passing zero again.
-			var passedZeroCount = dial == 0 ? 0: Math.Abs(Utils.CountWrappings(dial, value));
+			var passedZeroCount = dial == 0 ? 0 : Math.Abs(Utils.CountWrappings(dial, value));
 			dial = Utils.WrapValue(dial + value);
 			if (dial == 0)
 			{
@@ -75,7 +75,7 @@ public class Tasks
 			var value = int.Parse(line.Substring(1));
 			value = isNegative ? -value : value;
 			if (value == 0) throw new Exception("Unexpected value");
-			var passedZeroCount = dial == 0 ? 0: Math.Abs(Utils.CountWrappings(dial, value));
+			var passedZeroCount = dial == 0 ? 0 : Math.Abs(Utils.CountWrappings(dial, value));
 			dial = Utils.WrapValue(dial + value);
 			if (dial == 0)
 			{
@@ -102,5 +102,39 @@ public class Tasks
 		}
 		Debug.WriteLine($" Hit zero {dialZeroHitsTotal} times and passed zero {dialPassedZeroTotal} times. ");
 		Debug.WriteLine($" Password is {dialZeroHitsTotal + dialPassedZeroTotal}. ");
+	}
+
+	[TestMethod]
+	public void Day2_Task1_Sample()
+	{
+		var path = Path.Combine(AppContext.BaseDirectory, "Data", "day2_input_sample.txt");
+		var content = File.ReadAllText(path);
+		var ranges = content.Split(',');
+		var rangeList = new List<(int start, int end)>();
+		foreach (var range in ranges)
+		{
+			var bounds = range.Split('-');
+			var start = int.Parse(bounds[0]);
+			var end = int.Parse(bounds[1]);
+			if(end <= start) throw new Exception("Invalid range");
+			Debug.WriteLine($"{start} - {end}");
+			rangeList.Add((start, end));
+		}
+		foreach (var range in rangeList)
+		{
+			var result = Utils.RangeHasRepeatingDigitSequences(range);
+			var debugText = $" - `{range.start}`-`{range.end}`";
+			if(result.Count == 0)
+			{
+				debugText += " contains no invalid IDs.";
+			}
+			else
+			{
+				debugText += $" has {result.Count} invalid ids, ";
+				var ands = string.Join(" and ", result.Select(e => e.RepeatedDigit));
+				debugText += $" {ands}.";
+			}
+			Debug.WriteLine(debugText);
+		}
 	}
 }

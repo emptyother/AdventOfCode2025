@@ -42,4 +42,23 @@ public class UtilsTests
 		Assert.AreEqual(-2, Utils.CountWrappings(0, -101));
 		await Task.CompletedTask;
 	}
+
+	[TestMethod]
+	public async Task TestHasRepeatingDigitSequences()
+	{
+		var result = Utils.RangeHasRepeatingDigitSequences(new ValueTuple<int, int>(11,22));
+		Assert.IsNotNull(result);
+		Assert.HasCount(2, result);
+		await Task.CompletedTask;
+	}
+	[TestMethod]
+	public async Task TestHasRepeatingDigitSequences2()
+	{
+		var result = Utils.HasRepeatingDigitSequences(1231234);
+		Assert.IsNotNull(result);
+		Assert.AreEqual(123.ToString(), result.Value.RepeatedDigit);
+		Assert.AreEqual(2, result.Value.RepeatedCount);
+		Assert.AreEqual(1231234.ToString(), result.Value.FullSequence);
+		await Task.CompletedTask;
+	}
 }

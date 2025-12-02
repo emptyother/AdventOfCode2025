@@ -1,6 +1,9 @@
+using System.Diagnostics;
+
 namespace AdventOfCode2025;
 
-public class Utils { 
+public class Utils
+{
 	private static int minValue = 0;
 	private static int maxValue = 99;
 
@@ -45,4 +48,56 @@ public class Utils {
 
 	private static int FlooredDivision(int a, int b) => (int)Math.Floor((double)a / b);
 	private static int CeiledDivision(int a, int b) => (int)Math.Ceiling((double)a / b);
+
+	public static RepeatedDigits? HasRepeatingDigitSequences(int current)
+	{
+		var currentStr = current.ToString();
+		for (var val = current; val > 0; val--)
+		{
+			var valString = val.ToString();
+			// Count how many times the current valString exists in currentStr consecutively.:
+			var count = 0;
+			var testStr = currentStr;
+			while (testStr.StartsWith(valString))
+			{
+				count++;
+				testStr = testStr[valString.Length..];
+			}
+			if(count > 1)
+			{
+				return new RepeatedDigits
+				{
+					RepeatedDigit = valString,
+					RepeatedCount = count,
+					FullSequence = currentStr
+				};
+			}
+		}
+		// No repeating sequences found.
+		return null;
+	}
+
+	public static List<RepeatedDigits> RangeHasRepeatingDigitSequences((int start, int end) range)
+	{
+		var current = range.start;
+		var list = new List<RepeatedDigits>();
+		while (current <= range.end)
+		{
+			Debug.WriteLine($"Range: {range.start} - {range.end}. Checking value: {current}.");
+			var res = HasRepeatingDigitSequences(current);
+			if (res.HasValue)
+			{
+				list.Add(res.Value);
+			}
+			current++;
+		}
+		return list;
+	}
+}
+
+public struct RepeatedDigits
+{
+	public string? RepeatedDigit;
+	public int RepeatedCount;
+	public string FullSequence;
 }
