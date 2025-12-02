@@ -46,7 +46,7 @@ public class UtilsTests
 	[TestMethod]
 	public async Task TestHasRepeatingDigitSequences()
 	{
-		var result = Utils.RangeHasDoubleDigitSequences(new ValueTuple<int, int>(11,22));
+		var result = Utils.RangeHasDoubleDigitSequences(new ValueTuple<int, int>(11, 22));
 		Assert.IsNotNull(result);
 		Assert.HasCount(2, result);
 		await Task.CompletedTask;

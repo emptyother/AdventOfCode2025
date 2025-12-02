@@ -2,13 +2,12 @@ namespace AdventOfCode2025;
 
 public class Utils
 {
-	private static int minValue = 0;
-	private static int maxValue = 99;
+	private const int minValue = 0;
+	private const int maxValue = 99;
 
 	public static int WrapValue(int value)
 	{
-		var size = (maxValue - minValue) + 1;
-		if (size <= 0) throw new ArgumentException("Invalid range.");
+		const int size = (maxValue - minValue) + 1;
 		var shifted = value - minValue;
 		var wrappedZeroBased = ((shifted % size) + size) % size;
 		return wrappedZeroBased + minValue;
