@@ -54,11 +54,11 @@ public class UtilsTests
 	[TestMethod]
 	public async Task TestHasRepeatingDigitSequences2()
 	{
-		var result = Utils.HasRepeatingDigitSequences(1231234);
+		var result = Utils.HasRepeatingDigitSequences(123123);
 		Assert.IsNotNull(result);
 		Assert.AreEqual(123.ToString(), result.Value.RepeatedDigit);
 		Assert.AreEqual(2, result.Value.RepeatedCount);
-		Assert.AreEqual(1231234.ToString(), result.Value.FullSequence);
+		Assert.AreEqual(123123.ToString(), result.Value.FullSequence);
 		await Task.CompletedTask;
 	}
 }

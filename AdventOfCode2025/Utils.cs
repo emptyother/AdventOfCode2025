@@ -52,23 +52,26 @@ public class Utils
 	public static RepeatedDigits? HasRepeatingDigitSequences(int current)
 	{
 		var currentStr = current.ToString();
-		for (var val = current; val > 0; val--)
+		for (var divider = 2; divider <= currentStr.Length; divider++)
 		{
-			var valString = val.ToString();
-			// Count how many times the current valString exists in currentStr consecutively.:
-			var count = 0;
-			var testStr = currentStr;
-			while (testStr.StartsWith(valString))
+			// split into parts of 'divider' length
+			if (currentStr.Length % divider != 0) continue; // must divide evenly
+			var partLength = currentStr.Length / divider;
+			var parts = new List<string>();
+			for (var i = 0; i < divider; i++)
 			{
-				count++;
-				testStr = testStr[valString.Length..];
+				var part = currentStr.Substring(i * partLength, partLength);
+				parts.Add(part);
 			}
-			if(count > 1)
+			// Find if all parts are the same
+			var firstPart = parts[0];
+			var allSame = parts.All(p => p == firstPart);
+			if (allSame)
 			{
 				return new RepeatedDigits
 				{
-					RepeatedDigit = valString,
-					RepeatedCount = count,
+					RepeatedDigit = firstPart,
+					RepeatedCount = divider,
 					FullSequence = currentStr
 				};
 			}

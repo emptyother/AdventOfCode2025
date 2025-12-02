@@ -130,8 +130,8 @@ public class Tasks
 			}
 			else
 			{
-				debugText += $" has {result.Count} invalid ids, ";
-				var ands = string.Join(" and ", result.Select(e => e.RepeatedDigit));
+				debugText += $" has {result.Count} invalid ids,";
+				var ands = string.Join(" and ", result.Select(e => e.FullSequence));
 				debugText += $" {ands}.";
 			}
 			Debug.WriteLine(debugText);
