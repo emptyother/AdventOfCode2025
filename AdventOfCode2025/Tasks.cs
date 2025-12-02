@@ -119,6 +119,7 @@ public class Tasks
 			if(end <= start) throw new Exception("Invalid range");
 			rangeList.Add((start, end));
 		}
+		var allInvalidIds = new List<int>();
 		foreach (var range in rangeList)
 		{
 			var result = Utils.RangeHasRepeatingDigitSequences(range);
@@ -130,10 +131,14 @@ public class Tasks
 			else
 			{
 				debugText += $" has {result.Count} invalid ids,";
-				var ands = string.Join(" and ", result.Select(e => e.FullSequence));
+				var allSequences = result.Select(e => int.Parse(e.FullSequence));
+				var ands = string.Join(" and ", allSequences);
 				debugText += $" {ands}.";
+				allInvalidIds.AddRange(allSequences);
 			}
 			Debug.WriteLine(debugText);
 		}
+		var sumOfAllInvalidIds = allInvalidIds.Sum();
+		Debug.WriteLine($" Sum of all invalid IDs: {sumOfAllInvalidIds} ");
 	}
 }
