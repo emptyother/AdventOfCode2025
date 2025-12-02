@@ -49,6 +49,28 @@ public class Utils
 	private static int FlooredDivision(int a, int b) => (int)Math.Floor((double)a / b);
 	private static int CeiledDivision(int a, int b) => (int)Math.Ceiling((double)a / b);
 
+	public static RepeatedDigits? HasDoubleDigitSequences(int current)
+	{
+		// Same as below except I only need to divide by 2.
+		var currentStr = current.ToString();
+		// Must divide evenly:
+		if (currentStr.Length % 2 != 0) return null;
+		var partLength = currentStr.Length / 2;
+		var firstPart = currentStr.Substring(0, partLength);
+		var secondPart = currentStr.Substring(partLength, partLength);
+		if (firstPart == secondPart)
+		{
+			return new RepeatedDigits
+			{
+				RepeatedDigit = firstPart,
+				RepeatedCount = 2,
+				FullSequence = currentStr
+			};
+		}
+		return null;
+	}
+
+	[Obsolete("I was supposed to only look for double sequences, but this looks for any repeating sequences.")]
 	public static RepeatedDigits? HasRepeatingDigitSequences(int current)
 	{
 		var currentStr = current.ToString();
@@ -86,8 +108,7 @@ public class Utils
 		var list = new List<RepeatedDigits>();
 		while (current <= range.end)
 		{
-			Debug.WriteLine($"Range: {range.start} - {range.end}. Checking value: {current}.");
-			var res = HasRepeatingDigitSequences(current);
+			var res = HasDoubleDigitSequences(current);
 			if (res.HasValue)
 			{
 				list.Add(res.Value);
@@ -96,11 +117,4 @@ public class Utils
 		}
 		return list;
 	}
-}
-
-public struct RepeatedDigits
-{
-	public string? RepeatedDigit;
-	public int RepeatedCount;
-	public string FullSequence;
 }

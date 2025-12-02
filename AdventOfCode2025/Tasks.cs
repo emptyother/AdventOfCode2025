@@ -117,7 +117,6 @@ public class Tasks
 			var start = int.Parse(bounds[0]);
 			var end = int.Parse(bounds[1]);
 			if(end <= start) throw new Exception("Invalid range");
-			Debug.WriteLine($"{start} - {end}");
 			rangeList.Add((start, end));
 		}
 		foreach (var range in rangeList)
